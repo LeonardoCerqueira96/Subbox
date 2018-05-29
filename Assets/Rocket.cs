@@ -11,6 +11,10 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip deathClip;
     [SerializeField] private AudioClip winClip;
 
+    [SerializeField] private ParticleSystem mainThrusterParticles;
+    [SerializeField] private ParticleSystem deathParticles;
+    [SerializeField] private ParticleSystem winParticles;
+
     [SerializeField] private float rcsThrust = 100f;
     [SerializeField] private float mainThrust = 100f;
     [SerializeField] private float upThrust = 100f;
@@ -48,21 +52,28 @@ public class Rocket : MonoBehaviour
             if (Input.GetKey(KeyCode.Space))
             {
                 audioSource.clip = mainThrusterClip;
+                mainThrusterParticles.Play();
                 rigidBody.AddRelativeForce(Vector3.right * mainThrust);
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(mainThrusterClip);
+                }
             }
             else if (Input.GetKey(KeyCode.W))
             {
                 audioSource.clip = airPumpClip;
                 rigidBody.AddForce(Vector3.up * upThrust);
-            }
-                
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(airPumpClip);
+                }
             }
         }
         else
         {
+            mainThrusterParticles.Stop();
             if (audioSource.isPlaying)
             {
                 audioSource.Stop();
@@ -93,8 +104,6 @@ public class Rocket : MonoBehaviour
     {
         if (shipState != State.Alive) { return; }
 
-        audioSource.Stop();
-
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -102,12 +111,24 @@ public class Rocket : MonoBehaviour
                 break;
             case "Finish":
                 shipState = State.Transcending;
+
+                audioSource.Stop();
+                mainThrusterParticles.Stop();
+
                 audioSource.PlayOneShot(winClip);
+                winParticles.Play();
+
                 Invoke("LoadNextScene", 2f);
                 break;
             default:
                 shipState = State.Dead;
+
+                audioSource.Stop();
+                mainThrusterParticles.Stop();
+
                 audioSource.PlayOneShot(deathClip);
+                deathParticles.Play();
+
                 Invoke("LoadFirstLevel", 2f);
                 break;
         }
