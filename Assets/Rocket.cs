@@ -7,11 +7,13 @@ public class Rocket : MonoBehaviour
 {
 
     private Rigidbody rigidBody;
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start() 
 	{
         rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -22,20 +24,31 @@ public class Rocket : MonoBehaviour
 
     private void ProcessInput()
     {
-        // Check if it's being thrusted
+        // Check if it's being thrusted upwards
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
 
         // Check if it's being rotated
         if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("Rotating up");
+            transform.Rotate(Vector3.forward);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("Rotating down");
+            transform.Rotate(Vector3.back);
         }
     }
 }
