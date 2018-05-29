@@ -459,21 +459,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 54492459816077872, guid: 74f4d3e408cab0a41af5de22266e4de9,
-        type: 2}
-      propertyPath: m_Drag
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114150280974235614, guid: 74f4d3e408cab0a41af5de22266e4de9,
-        type: 2}
-      propertyPath: mainThrusterClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 653d96269b68aeb42b6c61c329b85a2f, type: 3}
-    - target: {fileID: 114150280974235614, guid: 74f4d3e408cab0a41af5de22266e4de9,
-        type: 2}
-      propertyPath: airPumpClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 688637dee51f6cc46a92c53c39e00b29, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74f4d3e408cab0a41af5de22266e4de9, type: 2}
   m_IsPrefabParent: 0

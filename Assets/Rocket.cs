@@ -8,6 +8,9 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] private AudioClip mainThrusterClip;
     [SerializeField] private AudioClip airPumpClip;
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField] private AudioClip winClip;
+
     [SerializeField] private float rcsThrust = 100f;
     [SerializeField] private float mainThrust = 100f;
     [SerializeField] private float upThrust = 100f;
@@ -99,10 +102,12 @@ public class Rocket : MonoBehaviour
                 break;
             case "Finish":
                 shipState = State.Transcending;
+                audioSource.PlayOneShot(winClip);
                 Invoke("LoadNextScene", 2f);
                 break;
             default:
                 shipState = State.Dead;
+                audioSource.PlayOneShot(deathClip);
                 Invoke("LoadFirstLevel", 2f);
                 break;
         }
