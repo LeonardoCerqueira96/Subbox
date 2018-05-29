@@ -53,7 +53,7 @@ public class Rocket : MonoBehaviour
             {
                 audioSource.clip = mainThrusterClip;
                 mainThrusterParticles.Play();
-                rigidBody.AddRelativeForce(Vector3.right * mainThrust);
+                rigidBody.AddRelativeForce(Vector3.right * mainThrust * Time.deltaTime);
 
                 if (!audioSource.isPlaying)
                 {
@@ -63,7 +63,7 @@ public class Rocket : MonoBehaviour
             else if (Input.GetKey(KeyCode.W))
             {
                 audioSource.clip = airPumpClip;
-                rigidBody.AddForce(Vector3.up * upThrust);
+                rigidBody.AddForce(Vector3.up * upThrust * Time.deltaTime);
 
                 if (!audioSource.isPlaying)
                 {
