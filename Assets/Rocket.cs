@@ -18,6 +18,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float rcsThrust = 100f;
     [SerializeField] private float mainThrust = 100f;
     [SerializeField] private float upThrust = 100f;
+    [SerializeField] private float levelLoadDelay = 2f;
 
     enum State { Alive, Dead, Transcending }
     private State shipState;
@@ -118,7 +119,7 @@ public class Rocket : MonoBehaviour
                 audioSource.PlayOneShot(winClip);
                 winParticles.Play();
 
-                Invoke("LoadNextScene", 2f);
+                Invoke("LoadNextScene", levelLoadDelay);
                 break;
             default:
                 shipState = State.Dead;
@@ -129,7 +130,7 @@ public class Rocket : MonoBehaviour
                 audioSource.PlayOneShot(deathClip);
                 deathParticles.Play();
 
-                Invoke("LoadFirstLevel", 2f);
+                Invoke("LoadFirstLevel", levelLoadDelay);
                 break;
         }
     }
